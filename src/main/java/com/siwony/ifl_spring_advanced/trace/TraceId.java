@@ -4,7 +4,6 @@ import lombok.Getter;
 
 import java.util.UUID;
 
-@Getter
 public class TraceId {
 
     private String id;
@@ -25,14 +24,23 @@ public class TraceId {
     }
 
     public TraceId createNextId(){
-        return new TraceId(id, level + 1);
+        return new TraceId(this.id, this.level + 1);
     }
 
     public TraceId createPreviousId(){
-        return new TraceId(id, level - 1);
+        return new TraceId(this.id, level - 1);
     }
 
     public boolean isFirstLevel(){
-        return level == 0;
+        return this.level == 0;
     }
+
+    public String getId() {
+        return this.id;
+    }
+
+    public int getLevel() {
+        return this.level;
+    }
+
 }
