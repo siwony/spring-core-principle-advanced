@@ -1,22 +1,24 @@
-package com.siwony.ifl_spring_advanced.trace.thread_local.code;
+package com.siwony.ifl_spring_advanced.trace;
 
+import com.siwony.ifl_spring_advanced.trace.thread_local.code.FieldService;
+import com.siwony.ifl_spring_advanced.trace.thread_local.code.ThreadLocalService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 
 @Slf4j
 public class FieldServiceTest {
 
-    private FieldService fieldService = new FieldService();
+    private ThreadLocalService service = new ThreadLocalService();
 
     @Test
     void field(){
         log.info("main start");
         Runnable userA = () -> {
-            fieldService.logic("userA");
+            service.logic("userA");
         };
 
         Runnable userB = () -> {
-            fieldService.logic("userB");
+            service.logic("userB");
         };
 
         Thread threadA = new Thread(userA);
@@ -26,7 +28,6 @@ public class FieldServiceTest {
         threadB.setName("thread-B");
 
         threadA.start();
-//        sleep(2000); // 동시성 문제 발생하지 않는다.
         threadB.start();
 
         sleep(3000); //
