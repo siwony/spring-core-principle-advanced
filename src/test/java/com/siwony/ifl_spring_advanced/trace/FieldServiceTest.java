@@ -8,17 +8,21 @@ import org.junit.jupiter.api.Test;
 @Slf4j
 public class FieldServiceTest {
 
-    private ThreadLocalService service = new ThreadLocalService();
+    private final ThreadLocalService service = new ThreadLocalService();
 
     @Test
     void field(){
         log.info("main start");
         Runnable userA = () -> {
             service.logic("userA");
+            service.removeValueInThreadLocal();
+            service.lockUpValue();
         };
 
         Runnable userB = () -> {
             service.logic("userB");
+            service.removeValueInThreadLocal();
+            service.lockUpValue();
         };
 
         Thread threadA = new Thread(userA);

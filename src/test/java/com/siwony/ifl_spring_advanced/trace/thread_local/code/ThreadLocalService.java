@@ -15,6 +15,14 @@ public class ThreadLocalService {
         return nameStore.get();
     }
 
+    public void removeValueInThreadLocal(){
+        this.nameStore.remove();
+    }
+
+    public void lockUpValue(){
+        log.info("조회 nameStore={}", nameStore.get());
+    }
+
     private void sleep(long time){
         try {
             Thread.sleep(time);
