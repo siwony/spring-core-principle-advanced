@@ -1,6 +1,6 @@
 package com.siwony.ifl_spring_advanced.trace.template;
 
-import com.siwony.ifl_spring_advanced.trace.template.code.AbstractTemplate;
+import com.siwony.ifl_spring_advanced.trace.template.code.TimeMeasurementTemplate;
 import com.siwony.ifl_spring_advanced.trace.template.code.SubClassLogic1;
 import com.siwony.ifl_spring_advanced.trace.template.code.SubClassLogic2;
 import lombok.extern.slf4j.Slf4j;
@@ -43,32 +43,34 @@ public class TemplateMethodTest {
      */
     @Test
     void templateMethodV1(){
-        AbstractTemplate template1 = new SubClassLogic1();
+        TimeMeasurementTemplate<Void> template1 = new SubClassLogic1();
         template1.execute();
 
-        AbstractTemplate template2 = new SubClassLogic2();
+        TimeMeasurementTemplate<Void> template2 = new SubClassLogic2();
         template2.execute();
     }
 
     @Test
     void templateMethodV2(){
-        AbstractTemplate template1 = new AbstractTemplate() {
+        TimeMeasurementTemplate<Void> template1 = new TimeMeasurementTemplate<>() {
             @Override
-            protected void call() {
+            protected Void call() {
                 log.info("비즈니스 로직1 실행");
+                return null;
             }
         };
-        log.info("클래스 이름1={}", template1.getClass());
+//        log.info("클래스 이름1={}", template1.getClass());
         template1.execute();
 
 
-        AbstractTemplate template2 = new AbstractTemplate() {
+        TimeMeasurementTemplate<Void> template2 = new TimeMeasurementTemplate<>() {
             @Override
-            protected void call() {
+            protected Void call() {
                 log.info("비즈니스 로직2 실행");
+                return null;
             }
         };
-        log.info("클래스 이름2={}", template2.getClass());
+//        log.info("클래스 이름2={}", template2.getClass());
         template2.execute();
     }
 }
